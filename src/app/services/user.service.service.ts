@@ -16,8 +16,10 @@ export class UserService {
     localStorage.setItem("teste", "testecaraio")
     console.log(repositorio)
   }
-
-  retornarUsuarios(): Usuario[] {
+  pesquisarUsuario(nome: string): Usuario[]{
+    return this.retornarUsuarios()
+  }
+  private retornarUsuarios(): Usuario[] {
     let repositorioClientes = localStorage.getItem(UserService._REPO_CLIENTES)
     if(repositorioClientes){
       const usuarios: Usuario[] = JSON.parse(repositorioClientes)
