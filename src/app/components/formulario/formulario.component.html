@@ -1,0 +1,52 @@
+<div fxLayout="row" fxLayoutAlign="center" fxFlex="100%">
+  <div fxLayout="column" fxFlex="900px">
+    <form class="mt-60" #cadastroForm="ngForm" (ngSubmit)="cadastrarUsuario()">
+      <mat-card >
+        <mat-card-header>
+          <mat-card-title>Dados pessoais</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="mt-20">
+          <div fxLayout="row" fxFlexAlign="start" fxLayoutGap="16px">
+            <div fxLayout="column" fxFlex="800px">
+              <mat-form-field class="full-width">
+                <mat-label for="">Seu nome</mat-label>
+                <input type="text" matInput placeholder="Digite seu nome" [(ngModel)]="usuario.nome" name="nome">
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row" fxFlexAlign="start" fxLayoutGap="16px">
+            <div fxLayout="column" fxFlex="800px">
+              <mat-form-field class="full-width">
+                <mat-label for="">Seu email</mat-label>
+                <input type="text" matInput placeholder="Digite seu email" [(ngModel)]="usuario.email" name="email">
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row" fxFlexAlign="start" fxLayoutGap="16px">
+            <div fxLayout="column" fxFlex="300px">
+              <mat-form-field class="full-width">
+                <mat-label for="">Seu CPF</mat-label>
+                <input type="text" matInput placeholder="Digite seu CPF" [(ngModel)]="usuario.cpf" name="cpf">
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row" fxFlexAlign="start" fxLayoutGap="16px">
+            <div fxLayout="column" fxFlex="300px">
+              <mat-form-field class="full-width">
+                <mat-label for="">Sua data de nascimento</mat-label>
+                <input type="text" matInput placeholder="Digite sua data de nascimento " [(ngModel)]="usuario.dataDeNascimento" name="dataDeNascimento">
+              </mat-form-field>
+            </div>
+          </div>
+
+        </mat-card-content>
+        <mat-card-actions class="pl-16">
+          <button mat-flat-button color="primary" type="submit"><mat-icon fontIcon="save"></mat-icon>  Cadastrar </button>
+          <button mat-flat-button color="primary"><mat-icon fontIcon="refresh"></mat-icon> Alterar </button>
+          <button mat-flat-button color="accent" class="ml-5"><mat-icon fontIcon="backspace"></mat-icon> Limpar </button>
+        </mat-card-actions>
+      </mat-card>
+
+    </form>
+  </div>
+</div>
