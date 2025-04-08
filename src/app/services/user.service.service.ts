@@ -17,7 +17,9 @@ export class UserService {
     console.log(repositorio)
   }
   pesquisarUsuario(nome: string): Usuario[]{
-    return this.retornarUsuarios()
+    const listaUsuarios = this.retornarUsuarios()
+    const listaDeUsuariosEncontrados: Usuario[] = listaUsuarios.filter(x => x.nome?.indexOf(nome) !== -1 )
+    return listaDeUsuariosEncontrados
   }
   private retornarUsuarios(): Usuario[] {
     let repositorioClientes = localStorage.getItem(UserService._REPO_CLIENTES)

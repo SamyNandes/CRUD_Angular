@@ -8,7 +8,7 @@ export class Usuario {
   id?: string;
   static salvarUser(){
     const usuario = new Usuario();
-    usuario.id =  uuid();
+    usuario.id = uuid();
     return usuario;
   }
 }
