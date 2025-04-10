@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatFormField } from "@angular/material/form-field"
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { FormsModule } from '@angular/forms';
@@ -10,6 +10,9 @@ import { Usuario } from '../../entitys/user.entity';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service.service';
 import { CommonModule, NgIf } from '@angular/common';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask'
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
+
 @Component({
   selector: 'app-formulario',
   imports: [
@@ -25,13 +28,19 @@ import { CommonModule, NgIf } from '@angular/common';
     FormsModule,
     MatButtonModule,
     NgIf,
+    MatSnackBarModule,
+    NgxMaskDirective,
     CommonModule
+  ],
+  providers: [
+    provideNgxMask()
   ],
   templateUrl: './formulario.component.html',
   styleUrl: './formulario.component.scss'
 })
 export class FormularioComponent implements OnInit{
   usuario: Usuario = Usuario.salvarUser()
+  snack: MatSnackBar = inject(MatSnackBar);
   constructor(
     private service: UserService,
     private routeActivated: ActivatedRoute,
@@ -41,7 +50,9 @@ export class FormularioComponent implements OnInit{
   cadastrarUsuario(){
     this.service.salvarUsuario(this.usuario)
     this.usuario = Usuario.salvarUser()
-    console.log(this.usuario)
+    this.snack.open('Cadastro concluido!', 'ok', {
+      duration: 2000
+    })
 }
   alterarUsuario(){
     this.service.alterarUsuario(this.usuario)

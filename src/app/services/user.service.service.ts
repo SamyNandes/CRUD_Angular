@@ -11,12 +11,14 @@ export class UserService {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   alterarUsuario(user: Usuario){
-    const storage = this.retornarUsuarios()
-    storage.forEach(element => {
-      if(element.id == user.id){
-        Object.assign(element, user)
-      }
+    const storage = this.retornarUsuarios().map(element => {
+      return element.id === user.id ? {...element, ...user} : element
     });
+    localStorage.setItem(UserService._REPO_CLIENTES, JSON.stringify(storage))
+  }
+
+  deletarPorId(id: string){
+    const storage = this.retornarUsuarios().filter(element => element.id !== id)
     localStorage.setItem(UserService._REPO_CLIENTES, JSON.stringify(storage))
   }
 
@@ -26,6 +28,7 @@ export class UserService {
 
     localStorage.setItem(UserService._REPO_CLIENTES, JSON.stringify(repositorio))
   }
+
   pesquisarUsuario(nome: string): Usuario[]{
     const listaUsuarios = this.retornarUsuarios()
     if(nome == ""){
@@ -34,12 +37,14 @@ export class UserService {
     const listaDeUsuariosEncontrados: Usuario[] = listaUsuarios.filter(x => x.nome?.indexOf(nome) !== -1 )
     return listaDeUsuariosEncontrados
   }
+
   retornarUsuarioPorId(id: string): Usuario | undefined {
     const usuarios = this.retornarUsuarios()
     const user = usuarios.find(x => x.id == id ) || undefined
     return user
   }
-  private retornarUsuarios(): Usuario[] {
+
+  private retornarUsuarios(): Usuario[]  {
     if (isPlatformBrowser(this.platformId)) {
     let repositorioClientes = localStorage.getItem(UserService._REPO_CLIENTES)
     if(repositorioClientes){
@@ -53,4 +58,5 @@ export class UserService {
     return [];
   }
 }
+
 }

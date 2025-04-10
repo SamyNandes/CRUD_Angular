@@ -6,6 +6,7 @@ export class Usuario {
   email?: string;
   dataDeNascimento?: Date;
   id?: string;
+  deletando?: boolean = false;
   static salvarUser(){
     const usuario = new Usuario();
     usuario.id = uuid();
