@@ -7,8 +7,9 @@ import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIcon } from '@angular/material/icon'
 import { Usuario } from '../../entitys/user.entity';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service.service';
+import { CommonModule, NgIf } from '@angular/common';
 @Component({
   selector: 'app-formulario',
   imports: [
@@ -22,7 +23,9 @@ import { UserService } from '../../services/user.service.service';
     MatInputModule,
     MatCardActions,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    NgIf,
+    CommonModule
   ],
   templateUrl: './formulario.component.html',
   styleUrl: './formulario.component.scss'
@@ -31,20 +34,25 @@ export class FormularioComponent implements OnInit{
   usuario: Usuario = Usuario.salvarUser()
   constructor(
     private service: UserService,
-    private routeActivated: ActivatedRoute
+    private routeActivated: ActivatedRoute,
+    private router: Router,
   ){}
-
+  atualizando: Boolean = false
   cadastrarUsuario(){
     this.service.salvarUsuario(this.usuario)
     this.usuario = Usuario.salvarUser()
     console.log(this.usuario)
 }
+  alterarUsuario(){
+    this.service.alterarUsuario(this.usuario)
+  }
 ngOnInit(): void {
     this.routeActivated.queryParamMap.subscribe((x: any) => {
       const query = x['params']
       const id = query['id']
       const user = this.service.retornarUsuarioPorId(id)
       if(user){
+        this.atualizando = true
         this.usuario = user
       }
     })

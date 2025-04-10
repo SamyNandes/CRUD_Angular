@@ -10,6 +10,16 @@ export class UserService {
   static _REPO_CLIENTES = '_CLIENTES'
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
+  alterarUsuario(user: Usuario){
+    const storage = this.retornarUsuarios()
+    storage.forEach(element => {
+      if(element.id == user.id){
+        Object.assign(element, user)
+      }
+    });
+    localStorage.setItem(UserService._REPO_CLIENTES, JSON.stringify(storage))
+  }
+
   salvarUsuario(Cliente: Usuario){
     const repositorio = this.retornarUsuarios()
     repositorio.push(Cliente)

@@ -41,8 +41,13 @@
 
         </mat-card-content>
         <mat-card-actions class="pl-16">
-          <button mat-flat-button color="primary" type="submit"><mat-icon fontIcon="save"></mat-icon>  Cadastrar </button>
-          <button mat-flat-button color="primary"><mat-icon fontIcon="refresh"></mat-icon> Alterar </button>
+
+          <div *ngIf="atualizando; else blocoNaoAtualizando">
+            <button mat-flat-button type="button" (click)="alterarUsuario()" color="primary"><mat-icon fontIcon="refresh"></mat-icon> Alterar </button>
+          </div>
+          <ng-template #blocoNaoAtualizando>
+            <button mat-flat-button color="primary" type="submit"><mat-icon fontIcon="save"></mat-icon>  Cadastrar </button>
+          </ng-template>
           <button mat-flat-button color="accent" class="ml-5"><mat-icon fontIcon="backspace"></mat-icon> Limpar </button>
         </mat-card-actions>
       </mat-card>
