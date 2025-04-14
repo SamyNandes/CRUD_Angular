@@ -6,6 +6,8 @@ export class Usuario {
   email?: string;
   dataDeNascimento?: Date;
   id?: string;
+  estado?: string;
+  municipio?: string;
   deletando?: boolean = false;
   static salvarUser(){
     const usuario = new Usuario();

@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="center" fxFlex="100%">
   <div fxLayout="column" fxFlex="900px">
-    <form class="mt-60" #cadastroForm="ngForm" (ngSubmit)="cadastrarUsuario()">
+    <form class="mt-30" #cadastroForm="ngForm" (ngSubmit)="cadastrarUsuario()">
       <mat-card >
         <mat-card-header>
           <mat-card-title>Dados pessoais</mat-card-title>
@@ -38,7 +38,35 @@
               </mat-form-field>
             </div>
           </div>
-
+          <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+            <div fxLayout="column" fxFlex="300px">
+              <mat-form-field class="full-width">
+                <mat-label for="">Seu estado</mat-label>
+                <mat-select
+                [(ngModel)]="usuario.estado"
+                (selectionChange)="listarMunicipiosNaMudancaDoSelect($event)"
+                name="estadoSelecionado">
+                  @for (estado of listaUF; track $index) {
+                    <mat-option [value]="estado.sigla"> {{ estado.nome }} </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+            <div fxLayout="column" fxFlex="300px">
+              <mat-form-field class="full-width">
+                <mat-label for="">Seu municipio</mat-label>
+                <mat-select
+                [(ngModel)]="usuario.municipio"
+                name="municipio">
+                  @for (municipio of listagemMunicipios; track $index) {
+                    <mat-option [value]="municipio.nome"> {{ municipio.nome }} </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
         </mat-card-content>
         <mat-card-actions class="pl-16">
 

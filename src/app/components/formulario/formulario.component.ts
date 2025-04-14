@@ -12,10 +12,14 @@ import { UserService } from '../../services/user.service.service';
 import { CommonModule, NgIf } from '@angular/common';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
-
+import { BrasilAPIService } from '../../services/brasil-api.service';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select'
+import { Estado } from '../../entitys/estado.class';
+import { Municipio } from '../../entitys/municipio.class';
 @Component({
   selector: 'app-formulario',
   imports: [
+    MatSelectModule,
     FlexLayoutModule,
     MatFormField,
     MatCardContent ,
@@ -41,7 +45,11 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 export class FormularioComponent implements OnInit{
   usuario: Usuario = Usuario.salvarUser()
   snack: MatSnackBar = inject(MatSnackBar);
+  listaUF: Estado[] = []
+  estadoSelecionado: string = ""
+  listagemMunicipios: Municipio[] = []
   constructor(
+    private serviceAPI: BrasilAPIService,
     private service: UserService,
     private routeActivated: ActivatedRoute,
     private router: Router,
@@ -57,6 +65,14 @@ export class FormularioComponent implements OnInit{
   alterarUsuario(){
     this.service.alterarUsuario(this.usuario)
   }
+  listarMunicipiosNaMudancaDoSelect(event: MatSelectChange){
+    const UfSelecionada = event
+    this.serviceAPI.listarTodosOsMunicipios(UfSelecionada).subscribe(
+      x => {
+        this.listagemMunicipios = x
+      }
+    )
+  }
 ngOnInit(): void {
     this.routeActivated.queryParamMap.subscribe((x: any) => {
       const query = x['params']
@@ -65,7 +81,21 @@ ngOnInit(): void {
       if(user){
         this.atualizando = true
         this.usuario = user
+        if(this.usuario.estado){
+          const event = { value: this.usuario.estado }
+          this.serviceAPI.listarTodosOsMunicipios(event as MatSelectChange).subscribe(
+            x => {
+              this.listagemMunicipios = x
+            }
+          )
+        }
       }
     })
+
+    this.serviceAPI.listarTodasAsUfs().subscribe(
+       x => {
+        this.listaUF = x
+      }
+    )
 }
 }

@@ -48,6 +48,14 @@
                   <th mat-header-cell *matHeaderCellDef>Data de nascimento</th>
                   <td mat-cell *matCellDef="let element"> {{ element.dataDeNascimento }}</td>
                 </ng-container>
+                <ng-container matColumnDef="estado">
+                  <th mat-header-cell *matHeaderCellDef>Estado</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.estado }}</td>
+                </ng-container>
+                <ng-container matColumnDef="municipio">
+                  <th mat-header-cell *matHeaderCellDef>Município</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.municipio }}</td>
+                </ng-container>
                 <ng-container matColumnDef="id">
                   <th mat-header-cell *matHeaderCellDef>id</th>
                   <td mat-cell *matCellDef="let element"> {{ element.id }}</td>

@@ -40,7 +40,7 @@ export class ConsultaComponent implements OnInit{
     private router: Router
   ){}
   snack: MatSnackBar = inject(MatSnackBar)
-  displayedColumns: string[] = ['nome','cpf','email', 'dataDeNascimento', 'id', 'botao']
+  displayedColumns: string[] = ['nome','cpf','email', 'dataDeNascimento', 'estado', 'municipio', 'id', 'botao']
   inputUsuarioParaProcurar: string = ""
   dadosDoUsuarioParaMostrar: Usuario[] = []
   deletandoPergunta: boolean = false
